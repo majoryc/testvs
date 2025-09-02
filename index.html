@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.3/ScrollTrigger.min.js"></script>
+    <script src=" https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js "></script>
+<link href=" https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.css " rel="stylesheet">
+ 
+
+    <title>Document</title>
+    <style>
+        * {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+        section {
+           height: 100vh;
+            width: 100%;
+        }
+
+        .section2 p {font-size:50px; 
+            line-height: 1.5;
+            transform: translateY(0);
+            opacity: 0;
+        }
+
+        .reveal-1 img {
+    width: 50vh;
+    height: auto;
+    display: block;
+    clip-path: inset(0 100% 0 0); /* Masque l'image initialement */
+    transition: clip-path 1s cubic-bezier(0.77, 0, 0.175, 1) /* Optionnel pour un effet de transition fluide */
+}
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+<section>
+    <h1>BIENVENUE SUR MON SITE</h1>
+</section>
+
+<section class="section2">
+    <div class="reveal">
+<p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions, et empêche de se concentrer</p>
+<p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions, et empêche de se concentrer</p>
+<p> sur la mise en page elle-même. L'avantage du Lorem Ipsum sur un texte générique comme 'Du texte. Du texte. Du texte.' est qu'il possède une distribution </p>
+<p> sur la mise en page elle-même. L'avantage du Lorem Ipsum sur un texte générique comme 'Du texte. Du texte. Du texte.' est qu'il possède une distribution </p>
+</div>
+</section>
+
+
+<section>
+    <div class="reveal-1">
+<img src="https://cdn.pixabay.com/photo/2023/12/04/15/12/soap-8429699_1280.jpg">
+</div>
+</section>
+
+
+    </div>
+    
+</body>
+<script>
+
+gsap.registerPlugin(ScrollTrigger);
+
+let revealContainers = document.querySelectorAll(".reveal");
+
+revealContainers.forEach((container) => {
+  let paragraphs = container.querySelectorAll("p"); 
+  let image = container.querySelectorAll("img"); // Select all <p> tags within the container// Select all <p> tags within the container
+
+  paragraphs.forEach((paragraph) => {
+    let tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: paragraph,
+      }
+    });
+
+    tl.to(paragraph, 1.5, {
+      yPercent: -100,
+      ease: Power2.out,
+      opacity: 1,
+      stagger:0.1
+    });
+  });
+});
+
+
+let revealImages = document.querySelectorAll(".reveal-1 img");
+
+revealImages.forEach((image) => {
+    gsap.to(image, {
+        scrollTrigger: {
+            trigger: image,
+            start: "top bottom", // Déclenche quand l'image entre dans la fenêtre
+        },
+        clipPath: "inset(0 0% 0 0)", // Révèle complètement l'image
+        duration: 1,
+        ease: "Power2.out"
+    });
+});
+
+</script>
+</html>
